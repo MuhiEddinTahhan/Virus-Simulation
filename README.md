@@ -158,9 +158,7 @@ The IPAddressGenerator class is responsible for dynamically generating IP addres
 
 ### MalwareUnitTest Class
 
-
 The MalwareUnitTest class is designed to conduct automated tests on the MalwareUnit class. It evaluates the functionality of malware simulations under controlled conditions to ensure that the malware behaves as expected across different scenarios.
-
 
 • Methods:
 
@@ -173,3 +171,59 @@ The MalwareUnitTest class is designed to conduct automated tests on the MalwareU
 ◇ testEdgeCases(): Focuses on how the MalwareUnit handles boundary or unusual conditions, such as zero time to perform actions or an empty list of target IPs.
 
 ◇ testIPGeneratorClass(): Focuses on testing the IPAddressGenrator class to see by giving an empty list with a time to perform the simulation.
+
+## Design and Implementations decisions
+
+The program is designed to create a new MalwareUnit object for each IP address that is being passed and a virus for each type of action. The viruses are created based on a switch that takes nextAction's variable as the indication of what the virus should do:
+
+![Screenshot 2024-04-25 233239](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/20a83ca4-47f4-4795-b124-7ed2003993da)
+
+Statistics are being submitted based on the Actions that the Malware unit performs and how many active units are being created for the list of IPs that were given. For the actions that the virus performs, each action is a separate class that extends its functionality from MalwareUnitTemplate which is an abstract class. The reason why I chose to make a template is to give me more flexibility with accessing the attacks, in addition, to not having to initialize a new object every time. 
+
+![Screenshot 2024-04-25 234037](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/5a363454-12e8-4e19-90c5-cfae53187296)
+
+## Used Design Patterns
+
+• Template Pattern: The MalwareUnit class uses the template method pattern via its abstract superclass Unit, where the performAction() method is overridden to execute different malware actions based on the malware unit's current state. Also, it is used with the attacks of the viruses. It is shown in the abstract class MalwareUnitTemplate and every action class extends from that class and overrides the method attack(). The reason why I chose the template method for the viruses' actions is because most of the actions have the same algorithm with some minor differences. 
+
+• Singleton Pattern: Used in classes like IPAddressGenerator to ensure that there is a single instance of the IP addresses generated for the viruses in case there is no input from the user. The reason why I chose Singleton is because all the viruses should work on the same IP addresses. therefore it is important that the IP generator has only one instance.
+
+• Strategy Pattern: The program utilizes the strategy pattern to change the display behaviour of the simulation output through the DatabaseDisplayStrategy interface. This allows changing the output format without altering the virus objects. I chose the Strategy pattern because it allows us the flexibility to implement more classes that are more specialized in the representation of the data. In this program, this interface has been used to show the info that the viruses have like the IPs and their passwords. We could create another class that could display more specified info about the target for example.
+
+• Factory Method: The IPAddressGenerator class represents a factory method pattern that encapsulates the creation of IP address lists, abstracting the complexity of IP generation.
+
+• Observer Pattern: I used the observer pattern to add the Logging and Monitoring functionality to the MalwareUnit. I made 2 interfaces. MalwareActionObserver where this interface represents an observer in the Observer design pattern specific to malware actions. MalwareActionSubject is an interface where actions like adding, removing, and notifying observers are being introduced. The update method is being overridden in the LoggingObserver and the MonitoringObserver classes where each class has its own functionality.
+
+## Choice of logic
+
+• The program heavily relies on lists to manage IPs and concurrent threads to simulate real-time malware operations.
+
+• Enum is used to manage types of actions, ensuring a robust way of handling different operations by malware units.
+
+• Hash Maps were used to store the passwords with their proper IP address.
+
+• Switcher was used because it was easier to use with an enum to indicate the functionality of the virus than doing it with if-else.
+
+• Threads were used to start virus instances.
+
+## Usage of DRY and SOLID
+
+• DRY (Don't Repeat Yourself): Shared functionalities like IP generation and sleeping between actions are abstracted in separate methods or classes, reducing repetition.
+
+• SOLID:
+
+◇ Single Responsibility Principle: Each class has a single responsibility, e.g., IPAddressGenerator only generates IPs.
+
+◇ Open/Closed Principle: The system is open for extension but closed for modification, demonstrated by the ability to add new types of malware actions without altering existing code.
+
+◇ Liskov Substitution Principle: Subclasses of Unit like MalwareUnit class, can substitute for their parent without disrupting the expected behavior.
+
+◇ Interface Segregation and Dependency Inversion: The use of interfaces in the program ensures that specific functionalities are not needlessly exposed to classes that do not require them like the DatabaseDisplayStrategy interface where a class that implements it is only concerned about the specific logic that it wants to implement without altering the interface itself which achieves the Interface Segregation. For Dependency Inversion, we can see this characteristic is applied with all the interfaces in the simulation, as well as, the abstract class MalwareUnitTemplate where we saw that abstraction like the template class does not depend on what the action is going to be, but the action classes like Scan depend on the abstract class.
+
+## Synchronization choices
+
+The one place that the Synchronization is presented is within the Matrix class where the viruses will be created as threads to run with the simulation. The threads will be added to a list of threads so that each thread will have a turn and they will wait until the end of the previous thread to start:
+
+![Screenshot 2024-04-26 014944](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/1d047c0b-faf8-4a8f-abe6-486145d973dd)
+
+![Screenshot 2024-04-26 015001](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/381824c4-64fb-48f4-b62b-1ae416fa0b4d)
