@@ -197,9 +197,13 @@ Statistics are being submitted based on the Actions that the Malware unit perfor
 ## Choice of logic
 
 • The program heavily relies on lists to manage IPs and concurrent threads to simulate real-time malware operations.
+
 • Enum is used to manage types of actions, ensuring a robust way of handling different operations by malware units.
+
 • Hash Maps were used to store the passwords with their proper IP address.
+
 • Switcher was used because it was easier to use with an enum to indicate the functionality of the virus than doing it with if-else.
+
 • Threads were used to start virus instances.
 
 ## Usage of DRY and SOLID
