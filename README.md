@@ -227,3 +227,7 @@ The one place that the Synchronization is presented is within the Matrix class w
 ![Screenshot 2024-04-26 014944](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/1d047c0b-faf8-4a8f-abe6-486145d973dd)
 
 ![Screenshot 2024-04-26 015001](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/381824c4-64fb-48f4-b62b-1ae416fa0b4d)
+
+## UML of the program
+
+![umlFinal](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/3a45aa9a-91e5-4ae2-833c-c9527367d75e)
