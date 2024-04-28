@@ -13,7 +13,7 @@ The MalwareUnit has a method that helps enumerate through actions like scanning,
 ![Screenshot 2024-04-25 232203](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/cc2cce85-2263-42d3-9d3e-ccfd9ef5cdae)
 
 
-## MalwareUnit class methods:
+## MalwareUnit class methods
 
 
 1. Constructor: MalwareUnit(String name, SimulationInput input, Action nextAction, DatabaseDisplayStrategy strategy)
@@ -88,7 +88,7 @@ The MalwareUnit has a method that helps enumerate through actions like scanning,
 ![Screenshot 2024-04-26 000422](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/74aec8c0-0235-4d6f-a5d6-59ed2376f977)
 
 
-###MalwareActionObserver (Interface)
+### MalwareActionObserver (Interface)
 
 
 • Purpose: This interface is part of the Observer Design Pattern. It is used to define a standard for observers that need to react to changes or actions in a subject, in this case, malware actions.
@@ -104,7 +104,7 @@ The MalwareUnit has a method that helps enumerate through actions like scanning,
 ![Screenshot 2024-04-26 020054](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/62c74adf-5521-402e-aa12-11e20f43cdf5)
 
 
-###MalwareActionSubject (Interface)
+### MalwareActionSubject (Interface)
 
 
 • Purpose: Complements the MalwareActionObserver by providing an interface for subjects. It allows subjects to manage (add, remove) observers and notify them of changes or actions.
@@ -125,7 +125,7 @@ The MalwareUnit has a method that helps enumerate through actions like scanning,
 ![Screenshot 2024-04-26 020112](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/43eaef97-4638-4218-9865-67356f8bb27d)
 
 
-###MalwareUnitTemplate (Abstract Class)
+### MalwareUnitTemplate (Abstract Class)
 
 
 • Purpose: This abstract class serves as a template for creating different types of malware units. It utilizes the Template Method Design Pattern to define the skeleton of an algorithm, in this case, the steps involved in malware operations, while allowing its subclasses to redefine certain steps without changing the algorithm's structure.
@@ -141,3 +141,35 @@ The MalwareUnit has a method that helps enumerate through actions like scanning,
 • Classes that extended this class:  Scan, SendingEmail, EstablishConnection, DumpSAMFile, CrackPassword, and DeleteLogs
 
 ![Screenshot 2024-04-26 020143](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/3142b7f9-beb8-4ab4-aa48-c478bc87259b)
+
+## Other Classes
+
+### IPAddressGenerator Class 
+
+
+The IPAddressGenerator class is responsible for dynamically generating IP addresses when no specific IPs are provided to the system. This functionality is critical in simulations where the user does not specify target IP addresses, allowing the system to create a realistic network environment by simulating interactions with various generated IPs.
+
+• Methods:
+
+◇ generateRandomIPAddresses(): This is the primary method of the IPAddressGenerator class. It generates a list of IP addresses based on the parameters defined within the method or passed through the constructor. The method typically involves random generation techniques to ensure a diverse set of IPs, mimicking real-world scenarios where malware might interact with different systems across the internet.
+
+![Screenshot 2024-04-26 021752](https://github.com/MuhiEddinTahhan/Virus-Simulation/assets/96084107/201ab9b6-3c98-44ad-be64-589ea7d75f6c)
+
+
+### MalwareUnitTest Class
+
+
+The MalwareUnitTest class is designed to conduct automated tests on the MalwareUnit class. It evaluates the functionality of malware simulations under controlled conditions to ensure that the malware behaves as expected across different scenarios.
+
+
+• Methods:
+
+◇ testBasicFunctionality(): Tests the basic operations of the MalwareUnit such as executing actions like scanning, sending emails, etc. It ensures that the unit can perform its fundamental tasks.
+
+◇ testConcurrency(): This test checks the MalwareUnit's ability to handle simultaneous actions on multiple threads, simulating a real-world scenario where malware might have to interact with multiple systems concurrently.
+
+◇ testStress(): Pushes the MalwareUnit to its limits by requiring it to perform a high number of actions in a short amount of time. This tests the robustness and efficiency of the malware under stress conditions.
+
+◇ testEdgeCases(): Focuses on how the MalwareUnit handles boundary or unusual conditions, such as zero time to perform actions or an empty list of target IPs.
+
+◇ testIPGeneratorClass(): Focuses on testing the IPAddressGenrator class to see by giving an empty list with a time to perform the simulation.
